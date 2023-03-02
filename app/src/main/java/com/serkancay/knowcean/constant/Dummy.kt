@@ -1,4 +1,4 @@
-package com.serkancay.knowcean
+package com.serkancay.knowcean.constant
 
 object Dummy {
     const val IMAGE_URL = "https://picsum.photos/800/600"

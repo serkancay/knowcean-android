@@ -1,9 +1,9 @@
-package com.serkancay.knowcean
+package com.serkancay.knowcean.ui.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.ScrollState
+import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -22,11 +22,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.serkancay.knowcean.constant.Dummy
 import com.serkancay.knowcean.ui.theme.KnowceanTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private val viewModel by viewModels<MainViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel.getRandomPage()
         setContent {
             KnowceanTheme {
                 // A surface container using the 'background' color from the theme
@@ -57,7 +63,7 @@ fun ArticleScreen() {
                 .align(Alignment.End)
                 .padding(16.dp)
         ) {
-            Text(text = stringResource(id = R.string.next_button))
+            Text(text = stringResource(id = com.serkancay.knowcean.R.string.next_button))
         }
     }
 
