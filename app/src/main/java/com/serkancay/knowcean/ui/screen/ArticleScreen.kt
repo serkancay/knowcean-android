@@ -27,7 +27,8 @@ fun ArticleScreen(
         title = Dummy.TITLE,
         thumbnail = Thumbnail(Dummy.IMAGE_URL),
         extract = Dummy.BODY_LARGE
-    )
+    ),
+    onNext: () -> Unit = {}
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -39,7 +40,7 @@ fun ArticleScreen(
             Body(body = page.extract)
         }
         Button(
-            onClick = { /*TODO*/ }, modifier = Modifier
+            onClick = { onNext.invoke() }, modifier = Modifier
                 .align(Alignment.End)
                 .padding(16.dp)
         ) {

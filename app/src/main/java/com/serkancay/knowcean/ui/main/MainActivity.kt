@@ -27,6 +27,7 @@ import com.serkancay.knowcean.constant.Dummy
 import com.serkancay.knowcean.network.model.Page
 import com.serkancay.knowcean.network.model.Response
 import com.serkancay.knowcean.ui.screen.ArticleScreen
+import com.serkancay.knowcean.ui.screen.LoadingScreen
 import com.serkancay.knowcean.ui.theme.KnowceanTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -46,12 +47,15 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val uiState = viewModel.pageStateFlow.collectAsState()
                     when (val state = uiState.value) {
-                        is Response.Loading -> { /* TODO show loading screen */
+                        is Response.Loading -> {
+                            LoadingScreen(stringResource(id = com.serkancay.knowcean.R.string.article_loading_message))
                         }
                         is Response.Failure -> { /* TODO show error screen */
                         }
                         is Response.Success -> {
-                            ArticleScreen(state.data)
+                            ArticleScreen(state.data) {
+                                viewModel.getRandomPage()
+                            }
                         }
                     }
                 }
