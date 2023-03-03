@@ -13,6 +13,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel
@@ -35,8 +36,10 @@ class MainViewModel @Inject constructor(
 
     fun selectLanguage(code: String) {
         viewModelScope.launch {
-            dataStore.edit {
-                it[PreferencesKeys.LANGUAGE] = code
+            runBlocking {
+                dataStore.edit {
+                    it[PreferencesKeys.LANGUAGE] = code
+                }
             }
         }
     }
