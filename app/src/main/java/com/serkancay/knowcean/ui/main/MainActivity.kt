@@ -13,6 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -23,6 +24,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.serkancay.knowcean.constant.Dummy
+import com.serkancay.knowcean.network.model.Page
+import com.serkancay.knowcean.network.model.Response
+import com.serkancay.knowcean.ui.screen.ArticleScreen
 import com.serkancay.knowcean.ui.theme.KnowceanTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -40,83 +44,26 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ArticleScreen()
+                    val uiState = viewModel.pageStateFlow.collectAsState()
+                    when (val state = uiState.value) {
+                        is Response.Loading -> { /* TODO show loading screen */
+                        }
+                        is Response.Failure -> { /* TODO show error screen */
+                        }
+                        is Response.Success -> {
+                            ArticleScreen(state.data)
+                        }
+                    }
                 }
             }
         }
     }
 }
 
-@Composable
-fun ArticleScreen() {
-    Column(modifier = Modifier.fillMaxSize()) {
-        Column(
-            modifier = Modifier
-                .weight(1f)
-                .verticalScroll(rememberScrollState())
-        ) {
-            Header()
-            Body()
-        }
-        Button(
-            onClick = { /*TODO*/ }, modifier = Modifier
-                .align(Alignment.End)
-                .padding(16.dp)
-        ) {
-            Text(text = stringResource(id = com.serkancay.knowcean.R.string.next_button))
-        }
-    }
-
-}
-
-@Composable
-fun Header(
-    title: String = Dummy.TITLE,
-    imageUrl: String = Dummy.IMAGE_URL,
-    modifier: Modifier = Modifier
-) {
-    Box(
-        modifier = modifier
-            .height(250.dp)
-    ) {
-        AsyncImage(
-            model = imageUrl,
-            contentDescription = title,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxWidth()
-        )
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            Color.Transparent,
-                            MaterialTheme.colorScheme.primary
-                        )
-                    )
-                )
-        )
-        Text(
-            text = title,
-            color = Color.White,
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier
-                .align(Alignment.BottomStart)
-                .padding(16.dp)
-        )
-    }
-}
-
-@Composable
-fun Body(body: String = Dummy.BODY_LARGE, modifier: Modifier = Modifier) {
-    Text(text = body, modifier = modifier.padding(16.dp))
-}
-
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     KnowceanTheme {
-        Header()
+        ArticleScreen()
     }
 }
