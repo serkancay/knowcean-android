@@ -3,4 +3,5 @@
     <string name="next_button">Sonraki</string>
     <string name="article_loading_message">Bilgi bulunuyor</string>
     <string name="retry_button">Tekrar dene</string>
+    <string name="choose_content_language">Choose content language</string>
 </resources>
