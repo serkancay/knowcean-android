@@ -1,12 +1,18 @@
 package com.serkancay.knowcean.di
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import com.serkancay.knowcean.BuildConfig
 import com.serkancay.knowcean.constant.Constants
+import com.serkancay.knowcean.constant.PreferencesKeys
 import com.serkancay.knowcean.network.api.WikiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -18,7 +24,17 @@ import javax.inject.Singleton
 object NetworkModule {
 
     @Provides
-    fun provideBaseUrl() = Constants.API_BASE_URL
+    fun provideBaseUrl(dataStore: DataStore<Preferences>): String {
+        return runBlocking {
+            dataStore.data.map {
+                when(it[PreferencesKeys.LANGUAGE] ?: "en") {
+                    "en" -> Constants.API_BASE_URL_EN
+                    "tr" -> Constants.API_BASE_URL_TR
+                    else -> Constants.API_BASE_URL_EN
+                }
+            }.first()
+        }
+    }
 
     @Singleton
     @Provides
