@@ -1,7 +1,5 @@
 package com.serkancay.knowcean.ui.main
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.serkancay.knowcean.network.model.Page
