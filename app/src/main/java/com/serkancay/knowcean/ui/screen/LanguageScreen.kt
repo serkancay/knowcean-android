@@ -8,6 +8,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -20,18 +24,28 @@ fun LanguageScreen(
     modifier: Modifier = Modifier,
     onSelect: (String) -> Unit = {}
 ) {
-    Column(
-        modifier = modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text = stringResource(id = R.string.app_name),
-            style = MaterialTheme.typography.displaySmall,
-            modifier = Modifier.padding(16.dp)
+    Box(modifier = modifier.fillMaxSize()) {
+        Image(
+            painter = painterResource(id = R.drawable.img_ocean),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.secondary, blendMode = BlendMode.Multiply),
+            modifier = Modifier.matchParentSize()
         )
-        LanguageList(languages = languages, modifier = Modifier.weight(1f)) {
-            onSelect.invoke(it)
+        Column(
+            modifier = Modifier.matchParentSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = stringResource(id = R.string.app_name),
+                style = MaterialTheme.typography.displaySmall,
+                color = Color.White,
+                modifier = Modifier.padding(16.dp)
+            )
+            LanguageList(languages = languages, modifier = Modifier.weight(1f)) {
+                onSelect.invoke(it)
+            }
         }
     }
 }
@@ -49,6 +63,7 @@ fun LanguageList(
     ) {
         Text(
             text = stringResource(id = R.string.choose_content_language),
+            color = Color.White,
             modifier = Modifier.padding(16.dp)
         )
         Column {

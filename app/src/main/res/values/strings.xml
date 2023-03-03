@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Knowcean</string>
-    <string name="next_button">Sonraki</string>
-    <string name="article_loading_message">Bilgi bulunuyor</string>
-    <string name="retry_button">Tekrar dene</string>
+    <string name="next_button">Another</string>
+    <string name="article_loading_message">Scanning the ocean</string>
+    <string name="retry_button">Retry</string>
     <string name="choose_content_language">Choose content language</string>
 </resources>

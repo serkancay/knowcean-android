@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Knowcean</string>
+    <string name="next_button">Başka</string>
+    <string name="article_loading_message">Okyanus taranıyor</string>
+    <string name="retry_button">Tekrar dene</string>
+    <string name="choose_content_language">İçerik dili seçin</string>
+</resources>
