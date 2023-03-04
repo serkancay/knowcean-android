@@ -1,5 +1,7 @@
 
-# Knowcean (Android)
+# <img src="app/src/main/ic_launcher-playstore.png" width="28"/>&nbsp; Knowcean (Android)
+
+
 
 Learn random information from Wikipedia(Ocean?). Ocean water before sleep. 🌜
 
